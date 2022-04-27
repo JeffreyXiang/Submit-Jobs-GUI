@@ -19,9 +19,9 @@ class ConfigManager:
         self.cluster_select = 0
         self.cluster_gpus = 0
 
-        self.singularity_virtual_cluster = None
+        self.singularity_virtual_cluster = 'msroctovc'
         self.singularity_instance_type = None
-        self.singularity_sla_tier = None
+        self.singularity_sla_tier = 'Basic'
 
         self.storage_datastore_name = None
         self.storage_container_name = None
@@ -67,7 +67,7 @@ class ConfigManager:
         }
 
         with open(filename, 'w') as f:
-            json.dump(userdata, f)
+            json.dump(userdata, f, indent=4)
 
     def load_userdata(self, filename=None):
         if filename is None:
@@ -293,5 +293,8 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     else:
         config = ConfigManager()
-        config.experiment_script = sys.argv[1]
-        config.submit_ITP()
+        config.experiment_script = sys.argv[2]
+        if sys.argv[1] == 'itp':
+            config.submit_ITP()
+        elif sys.argv[1] == 'sing':
+            config.submit_singularity()
