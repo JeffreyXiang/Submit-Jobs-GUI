@@ -277,10 +277,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def submit_slot(self):
         self.pushButton_submit.setDisabled(True)
-        if self.tabWidget_cluster.currentIndex() == 0:
-            self.config.submit_ITP()
-        elif self.tabWidget_cluster.currentIndex() == 1:
-            self.config.submit_singularity()
+        try:
+            if self.tabWidget_cluster.currentIndex() == 0:
+                self.config.submit_ITP()
+            elif self.tabWidget_cluster.currentIndex() == 1:
+                self.config.submit_singularity()
+        except:
+            pass
         self.pushButton_submit.setEnabled(True)
 
 
